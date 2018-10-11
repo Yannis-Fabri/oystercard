@@ -16,4 +16,14 @@ class Oystercard
   def deduct(amount)
     @balance -= amount
   end
+  
+  def on_way?
+    false
+  end
+  
+  def touch_in
+    puts balance
+    fail "Insufficient balance!" if balance < 1
+    @on_way = true
+  end
 end

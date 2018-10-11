@@ -24,6 +24,26 @@ describe Oystercard do
     
   it 'deducts from balance' do
     subject.top_up(20)
-    expect{ subject.deduct 1.5}.to change{ subject.balance }.by -1.5
+    expect{ subject.deduct 3}.to change{ subject.balance }.by -3
   end
+  
+  it 'is initially not on way' do
+    expect(subject).not_to be_on_way
+  end
+  
+  it 'touch in' do
+    subject.touch_in
+    expect(subject).to be_on_way
+  end
+  
+  it 'touch out' do
+    subject.touch_in
+    subject.touch_out
+    expect(subject).not_to be_on_way
+  end
+  
+  it 'will not touch in below the minimun balance' do
+    expect{ subject.touch_in }.to raise_error "Insufficient balance!"
+  end
+  
 end
